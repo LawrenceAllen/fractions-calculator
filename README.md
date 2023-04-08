@@ -3,4 +3,4 @@
 ### Instructions
 Download the [fractions-calculator.jar](https://github.com/LawrenceAllen/fractions-calculator/raw/main/fractions-calculator.jar) file.
 ### OR
-Clone the project and run it on your IDE.
+Clone and run it on your IDE.
