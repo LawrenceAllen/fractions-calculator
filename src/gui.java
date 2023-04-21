@@ -25,7 +25,8 @@ import java.awt.event.ActionListener;
 
 public class gui {
   private static String firstInputFieldText, secondInputFieldText;
-  private static JLabel answerLabel = new JLabel(" "); 
+  private static JLabel answerLabel = new JLabel(" ");
+  private static JLabel warningLabel = new JLabel(" "); 
   private static JButton addButton = new JButton("Add");
   private static JButton subtractButton = new JButton("Subtract");
   private static JButton multiplyButton = new JButton("Multiply");
@@ -64,33 +65,38 @@ public class gui {
     GridBagConstraints gbc = new GridBagConstraints();
 
     gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.gridx = 0;
+    gbc.insets = new Insets(0, 0, 10, 0);
+    gbc.gridx = 2;
     gbc.gridy = 0;
+    mainContainer.add(warningLabel, gbc);
+    gbc.insets = new Insets(0, 0, 0, 0);
+    gbc.gridx = 0;
+    gbc.gridy = 1;
     mainContainer.add(firstFractionFieldLabel, gbc);
     gbc.gridx = 2;
-    gbc.gridy = 0;
+    gbc.gridy = 1;
     gbc.gridwidth = 2;
     mainContainer.add(firstFractionField, gbc);
-    gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.gridx = 0;
-    gbc.gridy = 1;
+    gbc.gridy = 2;
     mainContainer.add(secondFractionFieldLabel, gbc);
     gbc.gridx = 2;
-    gbc.gridy = 1;
+    gbc.gridy = 2;
     gbc.gridwidth = 2;
     mainContainer.add(secondFractionField, gbc);
     gbc.insets = new Insets(10, 0, 10, 0);
     gbc.gridx = 0;
     gbc.gridy = 3;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.gridwidth = 4;
     mainContainer.add(answerLabel, gbc);
     gbc.insets = new Insets(10, 0, 0, 0);
     gbc.gridx = 0;
     gbc.gridy = 4;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.gridwidth = 4;
     mainContainer.add(buttonsPanel, gbc);
+
+    warningLabel.setForeground(Color.RED);
+    answerLabel.setForeground(Color.BLACK);
 
     frame.add(mainContainer);
 
@@ -109,10 +115,6 @@ public class gui {
     return secondInputFieldText;
   }
 
-  private static void setAnswer(String text) {
-    answerLabel.setText(text);
-  }
-
   private static void buttonClickEvents() {
     ActionListener actionListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -129,14 +131,16 @@ public class gui {
               Quotient.fraction();
             }
             answerLabel.setForeground(Color.BLACK);
-            setAnswer(Fractions.getFinalFraction());
+            answerLabel.setText(Fractions.getFinalFraction());
+            warningLabel.setText(" ");
           } else if (Fractions.getErrorNum() == 2) {
-            answerLabel.setForeground(Color.RED);
-            setAnswer("Fraction format error");
+            warningLabel.setForeground(Color.RED);
+            warningLabel.setText("Fraction format error");
+            answerLabel.setText(" ");
             Fractions.setErrorNum(0);
           } else {
-            answerLabel.setForeground(Color.RED);
-            setAnswer(Fractions.getErrorMessage());
+            warningLabel.setText(Fractions.getErrorMessage());
+            answerLabel.setText(" ");
             Fractions.setErrorNum(0);
           }
         }
