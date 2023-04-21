@@ -24,14 +24,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class gui {
-  static String firstInputFieldText, secondInputFieldText;
+  private static String firstInputFieldText, secondInputFieldText;
+  private static JLabel answerLabel = new JLabel(" "); 
+  private static JButton addButton = new JButton("Add");
+  private static JButton subtractButton = new JButton("Subtract");
+  private static JButton multiplyButton = new JButton("Multiply");
+  private static JButton divideButton = new JButton("Divide"); 
   public static JTextField firstFractionField = new JTextField();
   public static JTextField secondFractionField = new JTextField();
-  static JLabel answerLabel = new JLabel(" "); 
-  static JButton addButton = new JButton("Add");
-  static JButton subtractButton = new JButton("Subtract");
-  static JButton multiplyButton = new JButton("Multiply");
-  static JButton divideButton = new JButton("Divide"); 
 
   public static void fractionsGUI() {
     JFrame frame = new JFrame("Fractions Calculator");
@@ -109,16 +109,16 @@ public class gui {
     return secondInputFieldText;
   }
 
-  public static void setAnswer(String text) {
+  private static void setAnswer(String text) {
     answerLabel.setText(text);
   }
 
-  public static void buttonClickEvents() {
+  private static void buttonClickEvents() {
     ActionListener actionListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        Inputs.getInputs();
-        if (Inputs.firstInput != null && Inputs.secondInput != null) {
-          if (Fractions.errorNum < 1) {
+        Inputs.getFractionValues();
+        if (Inputs.getFirstInput() != null && Inputs.getSecondInput() != null) {
+          if (Fractions.getErrorNum() < 1) {
             if (e.getSource() == addButton) {
               Sum.fraction();
             } else if (e.getSource() == subtractButton) {
@@ -129,14 +129,14 @@ public class gui {
               Quotient.fraction();
             }
             answerLabel.setForeground(Color.BLACK);
-            setAnswer(Fractions.finalFraction);
-          } else if (Fractions.errorNum == 2) {
+            setAnswer(Fractions.getFinalFraction());
+          } else if (Fractions.getErrorNum() == 2) {
             answerLabel.setForeground(Color.RED);
             setAnswer("Fraction format error");
             Fractions.setErrorNum(0);
           } else {
             answerLabel.setForeground(Color.RED);
-            setAnswer(Fractions.error);
+            setAnswer(Fractions.getErrorMessage());
             Fractions.setErrorNum(0);
           }
         }

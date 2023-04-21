@@ -3,23 +3,26 @@ package src.Fractions;
 import src.gui; 
 
 public class Inputs {
-  public static String firstInput;
-  public static String secondInput;
-
-  public Inputs(String firstNumber, String secondNumber) {
-    firstInput = firstNumber;
-    secondInput = secondNumber;
-  }
+  private static String firstInput;
+  private static String secondInput;
 
   public static void setFirstInput(String newValue) {
     firstInput = newValue;
+  }
+
+  public static String getFirstInput() {
+    return firstInput;
   }
 
   public static void setSecondInput(String newValue) {
     secondInput = newValue;
   }
 
-  public static void getFirstInput() {
+  public static String getSecondInput() {
+    return secondInput;
+  }
+
+  private static void getFirstFraction() {
     if (!gui.getFirstTextFieldValue().isEmpty()) {
       setFirstInput(gui.getFirstTextFieldValue());
       char[] firstInputArray = firstInput.toCharArray();
@@ -33,7 +36,7 @@ public class Inputs {
     }
   }
 
-  public static void getSecondInput() {
+  private static void getSecondFraction() {
     if (!gui.getSecondTextFieldValue().isEmpty()) {
       setSecondInput(gui.getSecondTextFieldValue());
       char[] secondInputArray = secondInput.toCharArray();
@@ -47,9 +50,9 @@ public class Inputs {
     }
   }
 
-  public static void getInputs() {
-    getFirstInput();
-    getSecondInput();
+  public static void getFractionValues() {
+    getFirstFraction();
+    getSecondFraction();
   }
 
 }

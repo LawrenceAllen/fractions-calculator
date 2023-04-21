@@ -15,14 +15,14 @@ public class Difference {
     Fractions.printAnswer("Difference is ");
   }
 
-  static void likeFractions() {
-    Fractions.setNewNumerator(Fractions.firstNum - Fractions.secondNum);
-    Fractions.setNewDenominator(Fractions.firstDenom);
+  private static void likeFractions() {
+    Fractions.setNewNumerator(Fractions.getFirstNum() - Fractions.getSecondNum());
+    Fractions.setNewDenominator(Fractions.getFirstDenom());
   }
 
-  static void unlikeFractions() {
-    Fractions.setNewNumerator((Fractions.firstNum * Fractions.secondDenom) - (Fractions.secondNum * Fractions.firstDenom));
-    Fractions.setNewDenominator(Fractions.firstDenom * Fractions.secondDenom);
+  private static void unlikeFractions() {
+    Fractions.setNewNumerator((Fractions.getFirstNum() * Fractions.getSecondDenom()) - (Fractions.getSecondNum() * Fractions.getFirstDenom()));
+    Fractions.setNewDenominator(Fractions.getFirstDenom() * Fractions.getSecondDenom());
   }
 }
 

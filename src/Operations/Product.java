@@ -6,8 +6,8 @@ public class Product {
 
   public static void fraction() {
     Fractions.convertToFraction();
-    Fractions.setNewNumerator(Fractions.firstNum * Fractions.secondNum);
-    Fractions.setNewDenominator(Fractions.firstDenom * Fractions.secondDenom);
+    Fractions.setNewNumerator(Fractions.getFirstNum() * Fractions.getSecondNum());
+    Fractions.setNewDenominator(Fractions.getFirstDenom() * Fractions.getSecondDenom());
     Fractions.simplifyFraction();
     Fractions.printAnswer("Product is ");
   }

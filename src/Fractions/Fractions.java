@@ -7,41 +7,43 @@ import java.lang.Character;
 import src.gui;
 
 public class Fractions {
-  public static boolean isNegativeNumerator, isNegativeDenominator;
-  public static int firstWhole, firstNum, firstDenom, secondWhole, secondNum, secondDenom;
-  public static int newWhole, newNumerator, newDenominator, numRemainder, denomRemainder;
-  public static int w, n, d;
-  public static String error, finalFraction;
-  public static int errorNum;
+  private static int whole, numerator, denominator;
+  private static boolean isNegativeNumerator, isNegativeDenominator;
+  private static int firstWhole, firstNum, firstDenom, secondWhole, secondNum, secondDenom;
+  private static int newWhole, newNumerator, newDenominator, numRemainder, denomRemainder;
+  private static String errorMessage, finalFraction;
+  private static int errorNum;
 
-  public Fractions(int whole, int num, int denom) {
-    w = whole;
-    n = num;
-    d = denom;
+  public static String getErrorMessage() {
+    return errorMessage;
   }
 
   public static void setErrorNum(int n) {
     errorNum = n;
   }
 
-  public static void setFinalFraction(String text) {
-    finalFraction = text;
+  public static int getErrorNum() {
+    return errorNum;
   }
 
-  public static void setWholeNumber(int whole) {
-    w = whole;
+  public static String getFinalFraction() {
+    return finalFraction;
   }
 
-  public static void setNumerator(int numerator) {
-    n = numerator;
+  public static int getFirstNum() {
+    return firstNum;
   }
 
-  public static void setDenominator(int denominator) {
-    d = denominator;
+  public static int getSecondNum() {
+    return secondNum;
   }
 
-  public static void setNewWhole(int n) {
-    newWhole = n;
+  public static int getFirstDenom() {
+    return firstDenom;
+  }
+
+  public static int getSecondDenom() {
+    return secondDenom;
   }
 
   public static void setNewNumerator(int n) {
@@ -52,37 +54,29 @@ public class Fractions {
     newDenominator = n;
   }
 
-  public static void setNumRemainder(int n) {
-    numRemainder = n;
-  }
-
-  public static void setDenomRemainder(int n) {
-    denomRemainder = n;
-  }
-
   public static void setFirstFraction() {
-    if (w != 0) {
-      firstWhole = w;
-      setWholeNumber(0);
+    if (whole != 0) {
+      firstWhole = whole;
+      whole = 0;
     } else {
       firstWhole = 0;
     }
-    firstNum = n;
-    firstDenom = d;
+    firstNum = numerator;
+    firstDenom = denominator;
   }
 
   public static void setSecondFraction() {
-    if (w != 0) {
-      secondWhole = w;
-      setWholeNumber(0);
+    if (whole != 0) {
+      secondWhole = whole;
+      whole = 0;
     } else {
       secondWhole = 0;
     }
-    secondNum = n;
-    secondDenom = d;
+    secondNum = numerator;
+    secondDenom = denominator;
   }
 
-  static int turnToNegative(int n) {
+  private static int turnToNegative(int n) {
     int negative = (n - n) - n;
     return negative; 
   }
@@ -129,30 +123,30 @@ public class Fractions {
     if (newNumerator > newDenominator) {
       if (isNegativeNumerator) {
         int positiveWhole = (newNumerator / newDenominator);
-        setNewWhole(turnToNegative(positiveWhole));
+        newWhole = turnToNegative(positiveWhole);
       } else {
-        setNewWhole(newNumerator / newDenominator);
+        newWhole = (newNumerator / newDenominator);
       }
       setNewNumerator(newNumerator % newDenominator);
       if (newWhole == 0) {
-        setFinalFraction(title + newNumerator + "/" + newDenominator);
+        finalFraction = (title + newNumerator + "/" + newDenominator);
       } else if (newNumerator == 0 && newWhole > 0) {
-        setFinalFraction(title + newWhole + "/" + newDenominator + " or " + newWhole);
+        finalFraction = (title + newWhole + "/" + newDenominator + " or " + newWhole);
       } else {
-        setFinalFraction(title + newWhole + " " + newNumerator + "/" + newDenominator);
+        finalFraction = (title + newWhole + " " + newNumerator + "/" + newDenominator);
       }
     } else if (newNumerator == newDenominator) {
-      setFinalFraction(title + newNumerator + "/" + newDenominator + " or " + "1");
+      finalFraction = (title + newNumerator + "/" + newDenominator + " or " + "1");
     } else if (newDenominator == 1){
-      setFinalFraction(title + newNumerator + "/" + newDenominator + " or " + newNumerator);
+      finalFraction = (title + newNumerator + "/" + newDenominator + " or " + newNumerator);
     } else if (isNegativeDenominator) {
       newDenominator = Math.abs(newDenominator);
-      setFinalFraction(title + "-" + newNumerator + "/" + newDenominator);
+      finalFraction = (title + "-" + newNumerator + "/" + newDenominator);
     } else {
       if (isNegativeNumerator) {
         newNumerator = turnToNegative(newNumerator);
       }
-      setFinalFraction(title + newNumerator + "/" + newDenominator);
+      finalFraction = (title + newNumerator + "/" + newDenominator);
     }
     isNegativeNumerator = false;
     isNegativeDenominator = false;
@@ -203,7 +197,7 @@ public class Fractions {
   }
 
   public static void getFractionValues(char[] x) {
-    int whole = 0, numerator = 0, denominator = 0, tempIndex = 0;
+    int wholeNumValue = 0, numeratorNumValue = 0, denominatorNumValue = 0, tempIndex = 0;
     char space = ' ';
     char slash = '/';
 
@@ -221,20 +215,20 @@ public class Fractions {
           tempIndex = i + 1;
           wholeArray.remove(wholeArray.size() - 1);
           try {
-            whole = Integer.parseInt(wholeArray.stream().map(Object::toString).collect(Collectors.joining("")));
-            if (whole == 0) {
+            wholeNumValue = Integer.parseInt(wholeArray.stream().map(Object::toString).collect(Collectors.joining("")));
+            if (wholeNumValue == 0) {
               setErrorNum(1);
-              error = "Whole number SHOULD NOT BE ZERO";
+              errorMessage = "Whole number SHOULD NOT BE ZERO";
             }
           } catch (NumberFormatException e) {
             numberFormatErrorHandler();
           } catch (Exception e) {
             setErrorNum(1);
-            error = "Something went wrong. If it is not responding, restart the app";
+            errorMessage = "Something went wrong. If it is not responding, restart the app";
             gui.firstFractionField.setText("");
             gui.secondFractionField.setText("");
           }
-          setWholeNumber(whole);
+          whole = wholeNumValue;
           break;
         }
       }
@@ -246,16 +240,16 @@ public class Fractions {
         tempIndex = j + 1;
         numArray.remove(numArray.size() - 1);
         try {
-          numerator = Integer.parseInt(numArray.stream().map(Object::toString).collect(Collectors.joining("")));
+          numeratorNumValue = Integer.parseInt(numArray.stream().map(Object::toString).collect(Collectors.joining("")));
         } catch (NumberFormatException e) {
           numberFormatErrorHandler();
         } catch (Exception e) {
           setErrorNum(1);
-          error = "Something went wrong. If it is not responding, restart the app";
+          errorMessage = "Something went wrong. If it is not responding, restart the app";
           gui.firstFractionField.setText("");
           gui.secondFractionField.setText("");
         }
-        setNumerator(numerator);
+        numerator = numeratorNumValue;
         break;
       }
     }
@@ -263,27 +257,25 @@ public class Fractions {
     for (int k = tempIndex; k < x.length; k++) {
       denomArray.add(x[k]);
       try {
-        denominator = Integer.parseInt(denomArray.stream().map(Object::toString).collect(Collectors.joining("")));
-        if (denominator == 0) {
+        denominatorNumValue = Integer.parseInt(denomArray.stream().map(Object::toString).collect(Collectors.joining("")));
+        if (denominatorNumValue == 0) {
           setErrorNum(1);
-          error = "Denominator cannot be ZERO";
+          errorMessage = "Denominator cannot be ZERO";
         }
       } catch (NumberFormatException e) {
         numberFormatErrorHandler();
       } catch (Exception e) {
         setErrorNum(1);
-        error = "Something went wrong. If it is not responding, restart the app";
+        errorMessage = "Something went wrong. If it is not responding, restart the app";
         gui.firstFractionField.setText("");
         gui.secondFractionField.setText("");
       }
-      setDenominator(denominator);
+      denominator = denominatorNumValue;
     }
   }
 
-  static void numberFormatErrorHandler() {
+  private static void numberFormatErrorHandler() {
     setErrorNum(1);
-    error = "Enter a number";
-    gui.firstFractionField.setText("");
-    gui.secondFractionField.setText("");
+    errorMessage = "Wrong number format";
   }
 }

@@ -6,8 +6,8 @@ public class Quotient {
 
   public static void fraction() {
     Fractions.convertToFraction();
-    Fractions.setNewNumerator(Fractions.firstNum * Fractions.secondDenom);
-    Fractions.setNewDenominator(Fractions.firstDenom * Fractions.secondNum);
+    Fractions.setNewNumerator(Fractions.getFirstNum() * Fractions.getSecondDenom());
+    Fractions.setNewDenominator(Fractions.getFirstDenom() * Fractions.getSecondNum());
     Fractions.simplifyFraction();
     Fractions.printAnswer("Quotient is ");
   }
